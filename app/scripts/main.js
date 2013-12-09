@@ -28,7 +28,7 @@
                 .enter().append("line")
                 .attr("class", "link")
                 .attr('stroke-width', function(d) {
-                    return d.EdgeBetweenness/2000 + 1;
+                    return Math.log(d.EdgeBetweenness)/ Math.LN10;
                 });
 
             var node = svg.selectAll(".node")
