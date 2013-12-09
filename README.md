@@ -37,7 +37,7 @@ Cytoscapeで読み込める形式なら何でもかまいませんが、最も�
 
 以下のように読み込む事ができます:
 
-![Small Network Sample](https://github.com/keiono/d3-layout-sample/blob/develop/doc/img/small.png)
+![Small Network Sample](https://raw.github.com/keiono/d3-layout-sample/develop/doc/img/small.png)
 
 
 ネットワークの読み込み方は、[こちら](http://opentutorials.cgl.ucsf.edu/index.php/Tutorial:Introduction_to_Cytoscape_3-part2#Loading_a_Simple_Network)を参考にして下さい。
@@ -111,7 +111,7 @@ node.append("circle")
 
 書き出した結果を単純に可視化したものは[こちら](http://chianti.ucsd.edu/~kono/js/sample1/)です。このレポジトリにサンプルコードを含めておきます。Yeomanで作成したテンプレートほぼそのままです。ビルドにはnode.jsとGruntが必要です。
 
-![net1.json](https://github.com/keiono/d3-layout-sample/blob/develop/doc/img/sample1.png)
+![net1.json](https://raw.github.com/keiono/d3-layout-sample/develop/doc/img/sample1.png)
 
 更に複雑な例は次回の記事に。
 
