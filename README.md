@@ -28,30 +28,26 @@ Cytoscapeで読み込める形式なら何でもかまいませんが、最も�
 例えば、このリストは
 
 ```
-1   2
-2   3
-3   1
-1   4
+1	2
+2	3
+3	1
+1	4
+4	3
 ```
 
 以下のように読み込む事ができます:
 
+![Small Network Sample]()
+
+
 ネットワークの読み込み方は、[こちら](http://opentutorials.cgl.ucsf.edu/index.php/Tutorial:Introduction_to_Cytoscape_3-part2#Loading_a_Simple_Network)を参考にして下さい。
 
+
 #### 各種データの追加
-D3.jsに限りませんが、複雑な可視化を目指す場合、各種統計量や、その他ノードやエッジに付随するデータを一緒に使うのが一般的です。Cytoscape上であれば、そういったものを比較的簡単に統合することが出来、
-
-
-この記事の主眼は、あくまでCytoscape上でエディットしたデータを簡単にD3.js形式に書き出すという点なので、Cytoscapeに関する詳しい説明はしませんが、興味のある方は以下のリンクを参考にして下さい。
-
-英語ですが、いくつかプレゼンテーションスライドもありますので、興味のある方はどうぞ:
-
-
-### 書き出されるデータのサンプルと実際の可視化
+D3.jsに限りませんが、複雑な可視化を目指す場合、各種統計量や、その他ノードやエッジに付随するデータを一緒に使うのが一般的です。Cytoscape上であれば、そういったものを比較的簡単に統合することが出来、それをそのままD3.jsように書き出されるJSONに含めることが可能です。以下は、読み込んだ比較的小規模なネットワークを、NetworkAnalyzerと言う機能で各種統計量を計算して、それをそのまま書き出した例です:
 
 
 ```javascript
-{
   "nodes" : [ {
     "id" : "1480",
     "NeighborhoodConnectivity" : 2.0,
@@ -74,7 +70,50 @@ D3.jsに限りませんが、複雑な可視化を目指す場合、各種統計
     "AverageShortestPathLength" : 13.11693548,
     "ClusteringCoefficient" : 0.0
   }]
-}
 ```
+
+このように、各種統計量が含まれた状態でネットワークを書き出すことができれば、D3.jsの基本的な機能を使って、それらを視覚効果へとマッピングすることが容易です。
+
+この記事の主眼は、あくまでCytoscape上でエディットしたデータを簡単にD3.js形式に書き出すという点なので、Cytoscapeに関する詳しい説明はしませんが、興味のある方は以下のリンクを参考にして下さい。
+
+いくつかプレゼンテーションスライドもありますので、興味のある方はどうぞ:
+
+ * [繋がりを見る](http://www.slideshare.net/keiono/cytoscape)
+ * [Cytoscape Presentations at SpeakerDeck](https://speakerdeck.com/keiono)
+
+
+### D3.jsへの書き出し
+File-->Export-->Networkで、D3.js形式のフォーマットを選択するだけです。書き出しの結果は[こんな感じ](https://github.com/keiono/d3-layout-sample/blob/develop/app/data/net1.json)になります:
+
+
+### 書き出されるデータのサンプルと実際の可視化
+一度様々な属性値(attributes)を付随したグラフデータをJSON化すれば、それをマッピングするのは非常に容易で、例えば[Edge Betweenness](http://med.bioinf.mpi-inf.mpg.de/netanalyzer/help/2.7/index.html#attributes)をエッジの太さとしたいときは、*stroke-width* attributeの返り値にそのデータを指定するだけで良い（そのままでは太さの値としては大きすぎるので、底を10とする対数としました）:
+
+```javascript
+var link = svg.selectAll(".link")
+    .data(graph.links)
+    .enter().append("line")
+    .attr("class", "link")
+    .attr('stroke-width', function(d) {
+        return Math.log(d.EdgeBetweenness)/ Math.LN10;
+    });
+```
+
+更にシンプルな例として、ノードの次数をそのままノードの大きさにマッピングすることも、同じように返り値を半径にマップするだけで可能です:
+
+```javascript
+node.append("circle")
+    .attr("class", "node")
+    .attr("r", function(d) {
+        return d.Degree;
+    });
+```
+
+書き出した結果を単純に可視化したものはこちらです。このレポジトリにサンプルコードを含めておきます。Yeomanで作成したテンプレートほぼそのままです。ビルドにはnode.jsとGruntが必要です。
+
+![net1.json]()
+
+更に複雑な例は次回の記事に。
+
 
 [^fn]: どちらも、最終版がリリースされた時にこのドキュメントもアップデートします。
