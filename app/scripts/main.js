@@ -13,9 +13,9 @@
 
     function render() {
         var force = d3.layout.force()
-            .charge(-35)
+            .charge(-20)
             .gravity(.05)
-            .linkDistance(50)
+            .linkDistance(30)
             .size([WIDTH, HEIGHT]);
 
         var svg = d3.select(D3_VIEW).append("svg");
@@ -26,7 +26,10 @@
             var link = svg.selectAll(".link")
                 .data(graph.links)
                 .enter().append("line")
-                .attr("class", "link");
+                .attr("class", "link")
+                .attr('stroke-width', function(d) {
+                    return d.EdgeBetweenness/2000 + 1;
+                });
 
             var node = svg.selectAll(".node")
                 .data(graph.nodes)
@@ -39,13 +42,15 @@
                 .attr("dx", 8)
                 .attr("dy", ".25em")
                 .text(function (d) {
-                    return d.name
+                    return d.name;
                 });
 
             // Use circle for node shape
             node.append("circle")
                 .attr("class", "node")
-                .attr("r", 8);
+                .attr("r", function(d) {
+                    return d.Degree;
+                });
 
 
             force.on("tick", function () {
