@@ -1,0 +1,10 @@
+N1 child_of ROOT
+N2 child_of ROOT
+N3 child_of ROOT
+N4 child_of ROOT
+N5 child_of N1
+N6 child_of N1
+N7 child_of N4
+N8 child_of N2
+N9 child_of N5
+

@@ -1,0 +1,66 @@
+{
+  "name" : "ROOT",
+  "shared_name" : "ROOT",
+  "SUID" : 63,
+  "selected" : true,
+  "name" : "ROOT",
+  "children" : [ {
+    "name" : "N3",
+    "shared_name" : "N3",
+    "SUID" : 67,
+    "selected" : false,
+    "name" : "N3"
+  }, {
+    "name" : "N4",
+    "shared_name" : "N4",
+    "SUID" : 69,
+    "selected" : false,
+    "name" : "N4",
+    "children" : [ {
+      "name" : "N7",
+      "shared_name" : "N7",
+      "SUID" : 75,
+      "selected" : false,
+      "name" : "N7"
+    } ]
+  }, {
+    "name" : "N2",
+    "shared_name" : "N2",
+    "SUID" : 65,
+    "selected" : false,
+    "name" : "N2",
+    "children" : [ {
+      "name" : "N8",
+      "shared_name" : "N8",
+      "SUID" : 77,
+      "selected" : false,
+      "name" : "N8"
+    } ]
+  }, {
+    "name" : "N1",
+    "shared_name" : "N1",
+    "SUID" : 62,
+    "selected" : false,
+    "name" : "N1",
+    "children" : [ {
+      "name" : "N5",
+      "shared_name" : "N5",
+      "SUID" : 71,
+      "selected" : false,
+      "name" : "N5",
+      "children" : [ {
+        "name" : "N9",
+        "shared_name" : "N9",
+        "SUID" : 79,
+        "selected" : false,
+        "name" : "N9"
+      } ]
+    }, {
+      "name" : "N6",
+      "shared_name" : "N6",
+      "SUID" : 73,
+      "selected" : false,
+      "name" : "N6"
+    } ]
+  } ]
+}
