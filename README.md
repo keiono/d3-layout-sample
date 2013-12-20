@@ -242,10 +242,16 @@ Tree(もしくは階層構造)は、現実のデータを扱う時に様々な�
 ![treeview1](https://raw.github.com/keiono/d3-layout-sample/develop/doc/img/tree1d3.png)
 
 
-しかしこの表示方法がいつも適切かというとそうではありません。同じデータを様々な方式で眺めたいとき、D3のプリセットは威力を発揮します。
+しかしこの表示方法がいつも適切かというとそうではありません。リンク情報が最も有用な場合もあれば、Treeで表現されるクラスタの大きさが見たい場合もあります。同じデータを様々な方式で眺めたいとき、D3のプリセットは威力を発揮します。一つのデータモデルから全く異なる出力結果を容易に得る事ができるのはD3.jsを利用する利点の一つです。D3.jsプロジェクト立ち上げにも関わっているJ. Heer教授の論文でも、これは可視化アプリケーションをデザインするときの一つのパターンとして形式化されています(2.9: Reference Model)：
 
+* [J. Heer and M. Agrawala.  Software Design Patterns for Information Visualization (PDF)](http://vis.berkeley.edu/papers/infovis_design_patterns/2006-DesignPatterns-InfoVis.pdf)
 
-このように、同一データをD3.jsの基本機能を使ってレンダリングするだけでも様々な表現が可能です。しかし、最終的なアウトプットを得るのに、ひとつのライブラリだけで完結させる必要はありません。
+そして、彼のもとで研究を行っていたM. Bostock氏のD3論文でも、上記の論文の思想のもとにD3.jsがデザインしてあることが窺えます：
+
+* [M. Bostock et al. D3: Data-Driven Documents (PDF)](http://vis.stanford.edu/files/2011-D3-InfoVis.pdf)
 
 
 (明日のエントリーに続きます)
+
+## Day 21: 12/20/2013 D3.jsと周辺ツールによるデータの可視化
+
