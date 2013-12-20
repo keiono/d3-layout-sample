@@ -39,6 +39,12 @@ h1,h2,h3 {
   margin-bottom: 1em;
 }
 
+.d3treeview {
+  width: 800px;
+  height: 2700px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .footer {
@@ -91,13 +97,19 @@ h1,h2,h3 {
   stroke-opacity: 1.0;
   stroke: #383838;
   pointer-events: none;
-  font-size: 8px;
+  font-size: 6px;
 }
 
 
 line.link {
   fill: none;
   stroke: #c1c1c1;
+}
+
+path.link {
+  fill: none;
+  stroke: #a0a0a0;
+  stroke-width: 1.5px;
 }
 
 
