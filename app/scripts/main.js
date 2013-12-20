@@ -4,7 +4,7 @@
     'use strict';
 
     var DEF_NETWORK_FILE = 'data/net1.json';
-    var DEF_TREE_FILE = 'data/tree2.json';
+    var DEF_TREE_FILE = 'data/tree1.json';
     var WIDTH = 700;
     var HEIGHT = 700;
     var D3_VIEW = '.d3view';
@@ -76,16 +76,16 @@
 
     var TreeRenderer = function(width, height) {
         this.cluster = d3.layout.cluster()
-            .size([width, height-150]);
+            .size([height, width-80]);
 
         this.diagonal = d3.svg.diagonal()
             .projection(function(d) { return [d.y, d.x]; });
 
         this.svg = d3.select(D3_TREE_VIEW).append("svg")
-            .attr("width", 800)
-            .attr("height", 2700)
+            .attr("width", width)
+            .attr("height", height)
             .append("g")
-            .attr("transform", "translate(40,0)");
+            .attr("transform", "translate(50,0)");
     };
 
     TreeRenderer.prototype.render = function(tree) {
@@ -105,7 +105,7 @@
             .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
 
         node.append("circle")
-            .attr("r", 2);
+            .attr("r", 6);
 
         node.append("text")
             .attr("dx", function(d) { return d.children ? -10 : 10; })
@@ -162,7 +162,7 @@
     console.log('Network rendering start...');
     var gr = new GraphRenderer(WIDTH, HEIGHT);
     var rr = new RadialTreeRenderer(1100);
-    var tr = new TreeRenderer(2500, 800);
+    var tr = new TreeRenderer(700, 350);
 
     d3.json(DEF_NETWORK_FILE, function(graphData) {
         gr.render(graphData);
