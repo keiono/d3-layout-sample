@@ -11,7 +11,7 @@
     var D3_TREE_VIEW = '.d3treeview';
     var D3_CTREE_VIEW = '.d3ctreeview';
 
-    var GraphRenderer = function(width, height) {
+    var GraphRenderer = function (width, height) {
         this.force = d3.layout.force()
             .charge(-20)
             .gravity(0.05)
@@ -21,7 +21,7 @@
         this.svg = d3.select(D3_VIEW).append('svg');
     };
 
-    GraphRenderer.prototype.render = function(graph) {
+    GraphRenderer.prototype.render = function (graph) {
         this.force.nodes(graph.nodes).links(graph.links).start();
 
         var link = this.svg.selectAll('.link')
@@ -74,12 +74,14 @@
     };
 
 
-    var TreeRenderer = function(width, height) {
+    var TreeRenderer = function (width, height) {
         this.cluster = d3.layout.cluster()
-            .size([height, width-80]);
+            .size([height, width - 80]);
 
         this.diagonal = d3.svg.diagonal()
-            .projection(function(d) { return [d.y, d.x]; });
+            .projection(function (d) {
+                return [d.y, d.x];
+            });
 
         this.svg = d3.select(D3_TREE_VIEW).append("svg")
             .attr("width", width)
@@ -88,7 +90,7 @@
             .attr("transform", "translate(50,0)");
     };
 
-    TreeRenderer.prototype.render = function(tree) {
+    TreeRenderer.prototype.render = function (tree) {
         var nodes = this.cluster.nodes(tree),
             links = this.cluster.links(nodes);
 
@@ -102,26 +104,36 @@
             .data(nodes)
             .enter().append("g")
             .attr("class", "node")
-            .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+            .attr("transform", function (d) {
+                return "translate(" + d.y + "," + d.x + ")";
+            });
 
         node.append("circle")
             .attr("r", 6);
 
         node.append("text")
-            .attr("dx", function(d) { return d.children ? -10 : 10; })
+            .attr("dx", function (d) {
+                return d.children ? -10 : 10;
+            })
             .attr("dy", 20)
-            .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
-            .text(function(d) { return d.name; });
+            .style("text-anchor", function (d) {
+                return d.children ? "end" : "start";
+            })
+            .text(function (d) {
+                return d.name;
+            });
     };
 
 
-    var RadialTreeRenderer = function(diameter) {
+    var RadialTreeRenderer = function (diameter) {
         this.tree = d3.layout.tree()
             .size([2500, 400])
-            .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
+            .separation(function (a, b) {
+                return (a.parent == b.parent ? 1 : 2) / a.depth;
+            });
 
         this.diagonal = d3.svg.diagonal.radial()
-            .projection(function(d) {
+            .projection(function (d) {
                 return [d.y, d.x / 180 * Math.PI];
             });
 
@@ -129,10 +141,10 @@
             .attr("width", diameter)
             .attr("height", diameter)
             .append("g")
-            .attr("transform", "translate(" + (diameter / 2 -30) + "," + diameter / 2 + ")");
+            .attr("transform", "translate(" + (diameter / 2 - 30) + "," + diameter / 2 + ")");
     };
 
-    RadialTreeRenderer.prototype.render = function(treeData) {
+    RadialTreeRenderer.prototype.render = function (treeData) {
         var nodes = this.tree.nodes(treeData),
             links = this.tree.links(nodes);
 
@@ -146,16 +158,24 @@
             .data(nodes)
             .enter().append("g")
             .attr("class", "node")
-            .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; });
+            .attr("transform", function (d) {
+                return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")";
+            });
 
         node.append("circle")
             .attr("r", 2);
 
         node.append("text")
             .attr("dy", ".31em")
-            .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-            .attr("transform", function(d) { return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)"; })
-            .text(function(d) { return d.name; });
+            .attr("text-anchor", function (d) {
+                return d.x < 180 ? "start" : "end";
+            })
+            .attr("transform", function (d) {
+                return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)";
+            })
+            .text(function (d) {
+                return d.name;
+            });
     };
 
     // Main //
@@ -164,14 +184,119 @@
     var rr = new RadialTreeRenderer(1100);
     var tr = new TreeRenderer(700, 350);
 
-    d3.json(DEF_NETWORK_FILE, function(graphData) {
+    d3.json(DEF_NETWORK_FILE, function (graphData) {
         gr.render(graphData);
     });
 
-    d3.json(DEF_TREE_FILE, function(treeData) {
+    d3.json(DEF_TREE_FILE, function (treeData) {
         // Render in different ways:
         tr.render(treeData);
         rr.render(treeData);
     });
+
+    d3.chart("Tree", {
+
+
+        transform: function(data) {
+            var chart = this;
+            chart.data = data;
+            return data;
+        },
+
+
+        initialize: function () {
+            var chart = this;
+            this.cluster = d3.layout.cluster().size([this.h, this.w - 80]);
+            this.xScale = d3.scale.linear();
+
+            var treeBase =
+                this.base.attr("width", this.w)
+                    .attr("height", this.h)
+                    .append("g")
+                    .attr("transform", "translate(50,0)");
+
+
+            this.layer(
+                "tree",
+                treeBase, {
+
+                    dataBind: function (data) {
+                        var nodes = chart.cluster.nodes(data);
+                        var links = chart.cluster.links(nodes);
+                        var link = this.selectAll(".link")
+                            .data(links)
+                            .enter().append("path")
+                            .attr("class", "link")
+                            .attr("d", this.diagonal);
+
+                        var node = this.selectAll(".node")
+                            .data(nodes)
+                            .enter().append("g")
+                            .attr("class", "node")
+                            .attr("transform", function (d) {
+                                return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")";
+                            });
+
+
+                        return node;
+
+                    },
+
+                    insert: function () {
+                        var chart = this.chart();
+                        // update the range of the xScale
+                        chart.xScale.range([5, chart.w - chart.r]);
+
+                        return this.append("circle")
+                            .attr("r", chart.r);                    // setup the elements that were just created
+                    },
+
+                    events: {
+                        "enter": function () {
+                            var chart = this.chart();
+                            return this.attr("cx", function (d) {
+                                return chart.xScale(d);
+                            });
+                        }
+                    }
+
+                });
+        },
+
+        width: function (newWidth) {
+            if (arguments.length === 0) {
+                return this.w;
+            }
+            this.w = newWidth;
+            return this;
+        },
+
+        height: function (newHeight) {
+            if (arguments.length === 0) {
+                return this.h;
+            }
+            this.h = newHeight;
+            return this;
+        },
+
+        radius: function (newRadius) {
+            if (arguments.length === 0) {
+                return this.r;
+            }
+            this.r = newRadius;
+            return this;
+        }
+    });
+
+    var data = [1, 3, 4, 6, 10, 11, 20];
+
+    var treeView = d3.select(".d3chart")
+        .append("svg")
+        .chart("Tree")
+        .width(700)
+        .height(700)
+        .radius(10);
+
+    treeView.draw(data);
 
 })();
