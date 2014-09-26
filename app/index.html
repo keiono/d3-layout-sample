@@ -37,69 +37,49 @@
 <div class="header">
     <div class="container">
         <ul class="nav nav-pills pull-right">
-            <li><a href="#">Home</a></li>
-            <li><a href="http://keiono.github.io/" target="_blank">About</a></li>
+            <li><a href="https://github.com/keiono/cytoscape-d3">D3.js Exporter</a></li>
+            <li><a href="">Source Code</a></li>
         </ul>
-        <h3 class="text-muted">D3 Layout Samples</h3>
+        <h3 class="text-muted">D3.js Exporter Samples</h3>
     </div>
 </div>
 
 <div class="viz">
     <div class="container">
-        <h2>Sample 0
-            <small>Charts</small>
-        </h2>
-
-        <div class="d3chart"></div>
-        <div class="row">
-            <div class="col-lg-6">
-                <h4>このサンプルについて</h4>
-                <p>
-                    （作成中）
-                </p>
-            </div>
-        </div>
-        <p><a class="btn btn-lg btn-default" href="#">View Source</a></p>
-    </div>
-    <div class="container">
-        <h2>Sample 1
-            <small>JSON Exported from Cytoscape 3.1</small>
-        </h2>
+        <h3>Sample 1
+            <small>D3.js Style JSON Exported from Cytoscape 3.1</small>
+        </h3>
 
         <div class="d3view"></div>
+        
         <div class="row">
-            <div class="col-lg-6">
-                <h4>このサンプルについて</h4>
-                <p>
-                    （作成中）
-                </p>
-            </div>
+            <h4>About this example</h4>
+            <p>
+                This is a simple visualization of network data exported from Cytoscape.
+            </p>
         </div>
-        <p><a class="btn btn-lg btn-default" href="#">View Source</a></p>
     </div>
+
     <div class="container">
-        <h2>Sample 2
+        <h3>Sample 2
             <small>Tree JSON Exported from Cytoscape 3.1</small>
-        </h2>
+        </h3>
 
         <div class="d3treeview"></div>
-        <div class="d3ctreeview"></div>
+
         <div class="row">
-            <div class="col-lg-6">
-                <h4>このサンプルについて</h4>
-                <p>
-                    （作成中）
-                </p>
-            </div>
+            <h4>このサンプルについて</h4>
+            <p>
+                （作成中）
+            </p>
         </div>
-        <p><a class="btn btn-lg btn-default" href="#">View Source</a></p>
     </div>
 </div>
 
 
 <div class="footer">
     <div class="container">
-        <p>2013 Keiichiro Ono</p>
+        <p>&copy; 2014 Keiichiro Ono</p>
     </div>
 </div>
 
@@ -108,27 +88,9 @@
 <!-- bower:js -->
 <script src="bower_components/jquery/jquery.js"></script>
 <script src="bower_components/d3/d3.js"></script>
-<script src="bower_components/d3.chart/d3.chart.min.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-<script>
-    (function (b, o, i, l, e, r) {
-        b.GoogleAnalyticsObject = l;
-        b[l] || (b[l] =
-                function () {
-                    (b[l].q = b[l].q || []).push(arguments)
-                });
-        b[l].l = +new Date;
-        e = o.createElement(i);
-        r = o.getElementsByTagName(i)[0];
-        e.src = '//www.google-analytics.com/analytics.js';
-        r.parentNode.insertBefore(e, r)
-    }(window, document, 'script', 'ga'));
-    ga('create', 'UA-XXXXX-X');
-    ga('send', 'pageview');
-</script>
 
 <!-- build:js scripts/main.js -->
 <script src="scripts/main.js"></script>
